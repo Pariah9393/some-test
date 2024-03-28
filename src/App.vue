@@ -1,26 +1,81 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div class="row-column">
+      <HeaderComponent />
+      <div
+        class="noresult"
+        v-if="!this.$store.state.items && this.$store.state.searchValue"
+      >
+        No results
+      </div>
+      <div v-else>
+        <InfoComponent
+          v-if="this.$store.state.items && this.$store.state.searchValue"
+        />
+        <ListComponent />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderComponent from './components/HeaderComponent';
+import InfoComponent from './components/InfoComponent';
+import ListComponent from './components/ListComponent';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    HeaderComponent,
+    InfoComponent,
+    ListComponent,
+  },
+  data() {
+    return {
+      items: [],
+    };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.container {
+  max-width: 1136px;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    max-width: 922px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 700px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .container {
+    max-width: 400px;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row-column {
+  flex-direction: column;
+}
+.noresult {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30%;
 }
 </style>
